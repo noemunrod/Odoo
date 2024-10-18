@@ -1,0 +1,31 @@
+version: "3.1"
+#Contenedor de Odoo13(Debian 10 slim)
+services:
+  web:
+    image: odoo:13.0
+    container_name: odoo13
+    depends_on:
+      - db
+    ports:
+      - "8069:8069" # Puerto para servicio Odoo
+    volumes:
+      - ./odoo-web:/var/lib/odoo # Directorio persistencia de datos
+      - ./custom-addons:/mnt/extra-addons # Directorio de modulos personalizados
+    environment: # Credenciales Odoo // creacion odoo.conf
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+      - DATABASE_HOST=db
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+
+  #Contenedor de Postgre
+  db:
+    image: postgres:13
+    container_name: odoo13-db
+    environment: # Credenciales de postgresql
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes: # Volumen local para guardar la BBDD
+      - ./postgresql-data:/var/lib/postgresql/data
