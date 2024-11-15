@@ -29,3 +29,6 @@ services:
       - POSTGRES_PASSWORD=odoo
     volumes: # Volumen local para guardar la BBDD
       - ./postgresql-data:/var/lib/postgresql/data
+
+    ports:
+      - "5432:5432"

@@ -1,0 +1,1 @@
+SELECT calendar_event.id, calendar_event.description  FROM calendar_event;
